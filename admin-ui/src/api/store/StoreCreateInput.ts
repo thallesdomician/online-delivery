@@ -5,7 +5,7 @@ import { ProductCreateNestedManyWithoutStoresInput } from "./ProductCreateNested
 import { UserCreateNestedManyWithoutStoresInput } from "./UserCreateNestedManyWithoutStoresInput";
 
 export type StoreCreateInput = {
-  address: AddressWhereUniqueInput;
+  address?: AddressWhereUniqueInput | null;
   contact?: ContactCreateNestedManyWithoutStoresInput;
   name: string;
   openingWeekDays?: OpeningWeekDayCreateNestedManyWithoutStoresInput;

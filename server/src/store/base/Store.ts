@@ -21,12 +21,13 @@ import { User } from "../../user/base/User";
 @ObjectType()
 class Store {
   @ApiProperty({
-    required: true,
+    required: false,
     type: () => Address,
   })
   @ValidateNested()
   @Type(() => Address)
-  address?: Address;
+  @IsOptional()
+  address?: Address | null;
 
   @ApiProperty({
     required: false,

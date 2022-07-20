@@ -5,7 +5,7 @@ import { ProductUpdateManyWithoutStoresInput } from "./ProductUpdateManyWithoutS
 import { UserUpdateManyWithoutStoresInput } from "./UserUpdateManyWithoutStoresInput";
 
 export type StoreUpdateInput = {
-  address?: AddressWhereUniqueInput;
+  address?: AddressWhereUniqueInput | null;
   contact?: ContactUpdateManyWithoutStoresInput;
   name?: string;
   openingWeekDays?: OpeningWeekDayUpdateManyWithoutStoresInput;

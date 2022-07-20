@@ -30,7 +30,7 @@ class StoreUpdateInput {
   @Field(() => AddressWhereUniqueInput, {
     nullable: true,
   })
-  address?: AddressWhereUniqueInput;
+  address?: AddressWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
