@@ -15,6 +15,7 @@ import { Address } from "../../address/base/Address";
 import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { Contact } from "../../contact/base/Contact";
+import { OpeningWeekDay } from "../../openingWeekDay/base/OpeningWeekDay";
 import { Product } from "../../product/base/Product";
 import { User } from "../../user/base/User";
 @ObjectType()
@@ -60,6 +61,15 @@ class Store {
   @IsString()
   @Field(() => String)
   name!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => [OpeningWeekDay],
+  })
+  @ValidateNested()
+  @Type(() => OpeningWeekDay)
+  @IsOptional()
+  openingWeekDays?: Array<OpeningWeekDay>;
 
   @ApiProperty({
     required: false,

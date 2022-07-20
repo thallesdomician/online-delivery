@@ -31,6 +31,9 @@ import { Store } from "./Store";
 import { ContactFindManyArgs } from "../../contact/base/ContactFindManyArgs";
 import { Contact } from "../../contact/base/Contact";
 import { ContactWhereUniqueInput } from "../../contact/base/ContactWhereUniqueInput";
+import { OpeningWeekDayFindManyArgs } from "../../openingWeekDay/base/OpeningWeekDayFindManyArgs";
+import { OpeningWeekDay } from "../../openingWeekDay/base/OpeningWeekDay";
+import { OpeningWeekDayWhereUniqueInput } from "../../openingWeekDay/base/OpeningWeekDayWhereUniqueInput";
 import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
@@ -320,6 +323,104 @@ export class StoreControllerBase {
   ): Promise<void> {
     const data = {
       contact: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @Public()
+  @common.Get("/:id/openingWeekDays")
+  @ApiNestedQuery(OpeningWeekDayFindManyArgs)
+  async findManyOpeningWeekDays(
+    @common.Req() request: Request,
+    @common.Param() params: StoreWhereUniqueInput
+  ): Promise<OpeningWeekDay[]> {
+    const query = plainToClass(OpeningWeekDayFindManyArgs, request.query);
+    const results = await this.service.findOpeningWeekDays(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+
+        store: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+        weekday: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Store",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/openingWeekDays")
+  async connectOpeningWeekDays(
+    @common.Param() params: StoreWhereUniqueInput,
+    @common.Body() body: OpeningWeekDayWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      openingWeekDays: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Store",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/openingWeekDays")
+  async updateOpeningWeekDays(
+    @common.Param() params: StoreWhereUniqueInput,
+    @common.Body() body: OpeningWeekDayWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      openingWeekDays: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Store",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/openingWeekDays")
+  async disconnectOpeningWeekDays(
+    @common.Param() params: StoreWhereUniqueInput,
+    @common.Body() body: OpeningWeekDayWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      openingWeekDays: {
         disconnect: body,
       },
     };

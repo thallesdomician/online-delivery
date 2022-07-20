@@ -28,6 +28,7 @@ import { OpeningWeekDayFindUniqueArgs } from "./OpeningWeekDayFindUniqueArgs";
 import { OpeningWeekDay } from "./OpeningWeekDay";
 import { OpenHourFindManyArgs } from "../../openHour/base/OpenHourFindManyArgs";
 import { OpenHour } from "../../openHour/base/OpenHour";
+import { Store } from "../../store/base/Store";
 import { OpeningWeekDayService } from "../openingWeekDay.service";
 
 @graphql.Resolver(() => OpeningWeekDay)
@@ -85,7 +86,15 @@ export class OpeningWeekDayResolverBase {
   ): Promise<OpeningWeekDay> {
     return await this.service.create({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        store: args.data.store
+          ? {
+              connect: args.data.store,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -102,7 +111,15 @@ export class OpeningWeekDayResolverBase {
     try {
       return await this.service.update({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          store: args.data.store
+            ? {
+                connect: args.data.store,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -153,5 +170,16 @@ export class OpeningWeekDayResolverBase {
     }
 
     return results;
+  }
+
+  @Public()
+  @graphql.ResolveField(() => Store, { nullable: true })
+  async store(@graphql.Parent() parent: OpeningWeekDay): Promise<Store | null> {
+    const result = await this.service.getStore(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

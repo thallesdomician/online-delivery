@@ -13,6 +13,7 @@ import {
 
 import { AddressTitle } from "../address/AddressTitle";
 import { ContactTitle } from "../contact/ContactTitle";
+import { OpeningWeekDayTitle } from "../openingWeekDay/OpeningWeekDayTitle";
 import { ProductTitle } from "../product/ProductTitle";
 import { UserTitle } from "../user/UserTitle";
 
@@ -32,6 +33,14 @@ export const StoreCreate = (props: CreateProps): React.ReactElement => {
           <SelectArrayInput optionText={ContactTitle} />
         </ReferenceArrayInput>
         <TextInput label="Name" source="name" />
+        <ReferenceArrayInput
+          source="openingWeekDays"
+          reference="OpeningWeekDay"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={OpeningWeekDayTitle} />
+        </ReferenceArrayInput>
         <ReferenceArrayInput
           source="products"
           reference="Product"

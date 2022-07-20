@@ -43,6 +43,15 @@ class OpeningWeekDayOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  storeId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   updatedAt?: SortOrder;
 
   @ApiProperty({

@@ -43,6 +43,21 @@ export const StoreShow = (props: ShowProps): React.ReactElement => {
           </Datagrid>
         </ReferenceManyField>
         <ReferenceManyField
+          reference="OpeningWeekDay"
+          target="StoreId"
+          label="Opening Week Days"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <ReferenceField label="Store" source="store.id" reference="Store">
+              <TextField source={STORE_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+            <TextField label="Weekday" source="weekday" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
           reference="Product"
           target="StoreId"
           label="Products"

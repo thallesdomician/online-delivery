@@ -15,6 +15,7 @@ import { AddressWhereUniqueInput } from "../../address/base/AddressWhereUniqueIn
 import { ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { ContactUpdateManyWithoutStoresInput } from "./ContactUpdateManyWithoutStoresInput";
+import { OpeningWeekDayUpdateManyWithoutStoresInput } from "./OpeningWeekDayUpdateManyWithoutStoresInput";
 import { ProductUpdateManyWithoutStoresInput } from "./ProductUpdateManyWithoutStoresInput";
 import { UserUpdateManyWithoutStoresInput } from "./UserUpdateManyWithoutStoresInput";
 @InputType()
@@ -53,6 +54,18 @@ class StoreUpdateInput {
     nullable: true,
   })
   name?: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => OpeningWeekDayUpdateManyWithoutStoresInput,
+  })
+  @ValidateNested()
+  @Type(() => OpeningWeekDayUpdateManyWithoutStoresInput)
+  @IsOptional()
+  @Field(() => OpeningWeekDayUpdateManyWithoutStoresInput, {
+    nullable: true,
+  })
+  openingWeekDays?: OpeningWeekDayUpdateManyWithoutStoresInput;
 
   @ApiProperty({
     required: false,

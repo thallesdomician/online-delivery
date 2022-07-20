@@ -15,6 +15,7 @@ import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { OpenHourListRelationFilter } from "../../openHour/base/OpenHourListRelationFilter";
+import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
 @InputType()
 class OpeningWeekDayWhereInput {
   @ApiProperty({
@@ -39,5 +40,17 @@ class OpeningWeekDayWhereInput {
     nullable: true,
   })
   openHour?: OpenHourListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => StoreWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => StoreWhereUniqueInput)
+  @IsOptional()
+  @Field(() => StoreWhereUniqueInput, {
+    nullable: true,
+  })
+  store?: StoreWhereUniqueInput;
 }
 export { OpeningWeekDayWhereInput };

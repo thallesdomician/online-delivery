@@ -15,6 +15,7 @@ import { ContactListRelationFilter } from "../../contact/base/ContactListRelatio
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { StringFilter } from "../../util/StringFilter";
+import { OpeningWeekDayListRelationFilter } from "../../openingWeekDay/base/OpeningWeekDayListRelationFilter";
 import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
 import { UserListRelationFilter } from "../../user/base/UserListRelationFilter";
 @InputType()
@@ -52,6 +53,18 @@ class StoreWhereInput {
     nullable: true,
   })
   name?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => OpeningWeekDayListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => OpeningWeekDayListRelationFilter)
+  @IsOptional()
+  @Field(() => OpeningWeekDayListRelationFilter, {
+    nullable: true,
+  })
+  openingWeekDays?: OpeningWeekDayListRelationFilter;
 
   @ApiProperty({
     required: false,
