@@ -13,9 +13,8 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { IsOptional } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
-import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 @InputType()
 class AddressWhereInput {
@@ -62,18 +61,6 @@ class AddressWhereInput {
     nullable: true,
   })
   state?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => StoreWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => StoreWhereUniqueInput)
-  @IsOptional()
-  @Field(() => StoreWhereUniqueInput, {
-    nullable: true,
-  })
-  store?: StoreWhereUniqueInput;
 
   @ApiProperty({
     required: false,
