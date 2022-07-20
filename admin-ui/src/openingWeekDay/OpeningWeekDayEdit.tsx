@@ -1,12 +1,17 @@
 import * as React from "react";
+
 import {
   Edit,
   SimpleForm,
   EditProps,
   ReferenceArrayInput,
   SelectArrayInput,
+  ReferenceInput,
+  SelectInput,
 } from "react-admin";
+
 import { OpenHourTitle } from "../openHour/OpenHourTitle";
+import { StoreTitle } from "../store/StoreTitle";
 
 export const OpeningWeekDayEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -20,6 +25,9 @@ export const OpeningWeekDayEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={OpenHourTitle} />
         </ReferenceArrayInput>
+        <ReferenceInput source="store.id" reference="Store" label="Store">
+          <SelectInput optionText={StoreTitle} />
+        </ReferenceInput>
         <SelectArrayInput
           label="Weekday"
           source="weekday"

@@ -52,10 +52,25 @@ export class OpeningWeekDayControllerBase {
     @common.Body() data: OpeningWeekDayCreateInput
   ): Promise<OpeningWeekDay> {
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        store: data.store
+          ? {
+              connect: data.store,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
         id: true,
+
+        store: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         weekday: true,
       },
@@ -74,6 +89,13 @@ export class OpeningWeekDayControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        store: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         weekday: true,
       },
@@ -93,6 +115,13 @@ export class OpeningWeekDayControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        store: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         weekday: true,
       },
@@ -122,10 +151,25 @@ export class OpeningWeekDayControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          store: data.store
+            ? {
+                connect: data.store,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
           id: true,
+
+          store: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           weekday: true,
         },
@@ -158,6 +202,13 @@ export class OpeningWeekDayControllerBase {
         select: {
           createdAt: true,
           id: true,
+
+          store: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           weekday: true,
         },

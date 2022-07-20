@@ -10,7 +10,7 @@ https://docs.amplication.com/docs/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, OpeningWeekDay, OpenHour } from "@prisma/client";
+import { Prisma, OpeningWeekDay, OpenHour, Store } from "@prisma/client";
 
 export class OpeningWeekDayServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -56,5 +56,13 @@ export class OpeningWeekDayServiceBase {
         where: { id: parentId },
       })
       .openHour(args);
+  }
+
+  async getStore(parentId: string): Promise<Store | null> {
+    return this.prisma.openingWeekDay
+      .findUnique({
+        where: { id: parentId },
+      })
+      .store();
   }
 }

@@ -6,12 +6,13 @@ import {
   ShowProps,
   DateField,
   TextField,
+  ReferenceField,
   ReferenceManyField,
   Datagrid,
-  ReferenceField,
 } from "react-admin";
 
 import { OPENINGWEEKDAY_TITLE_FIELD } from "./OpeningWeekDayTitle";
+import { STORE_TITLE_FIELD } from "../store/StoreTitle";
 
 export const OpeningWeekDayShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -19,6 +20,9 @@ export const OpeningWeekDayShow = (props: ShowProps): React.ReactElement => {
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
+        <ReferenceField label="Store" source="store.id" reference="Store">
+          <TextField source={STORE_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
         <TextField label="Weekday" source="weekday" />
         <ReferenceManyField

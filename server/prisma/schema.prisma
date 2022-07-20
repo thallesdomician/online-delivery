@@ -45,16 +45,17 @@ model Product {
 }
 
 model Store {
-  address   Address?  @relation(fields: [addressId], references: [id])
-  addressId String?
-  contact   Contact[]
-  createdAt DateTime  @default(now())
-  id        String    @id @default(cuid())
-  name      String
-  products  Product[]
-  slug      String    @unique
-  updatedAt DateTime  @updatedAt
-  user      User[]
+  address         Address?         @relation(fields: [addressId], references: [id])
+  addressId       String?
+  contact         Contact[]
+  createdAt       DateTime         @default(now())
+  id              String           @id @default(cuid())
+  name            String
+  openingWeekDays OpeningWeekDay[]
+  products        Product[]
+  slug            String           @unique
+  updatedAt       DateTime         @updatedAt
+  user            User[]
 }
 
 model Category {
@@ -79,6 +80,8 @@ model OpeningWeekDay {
   createdAt DateTime                    @default(now())
   id        String                      @id @default(cuid())
   openHour  OpenHour[]
+  store     Store?                      @relation(fields: [storeId], references: [id])
+  storeId   String?
   updatedAt DateTime                    @updatedAt
   weekday   EnumOpeningWeekDayWeekday[]
 }

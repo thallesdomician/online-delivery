@@ -15,6 +15,7 @@ import { AddressWhereUniqueInput } from "../../address/base/AddressWhereUniqueIn
 import { ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { ContactCreateNestedManyWithoutStoresInput } from "./ContactCreateNestedManyWithoutStoresInput";
+import { OpeningWeekDayCreateNestedManyWithoutStoresInput } from "./OpeningWeekDayCreateNestedManyWithoutStoresInput";
 import { ProductCreateNestedManyWithoutStoresInput } from "./ProductCreateNestedManyWithoutStoresInput";
 import { UserCreateNestedManyWithoutStoresInput } from "./UserCreateNestedManyWithoutStoresInput";
 @InputType()
@@ -50,6 +51,18 @@ class StoreCreateInput {
   @IsString()
   @Field(() => String)
   name!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => OpeningWeekDayCreateNestedManyWithoutStoresInput,
+  })
+  @ValidateNested()
+  @Type(() => OpeningWeekDayCreateNestedManyWithoutStoresInput)
+  @IsOptional()
+  @Field(() => OpeningWeekDayCreateNestedManyWithoutStoresInput, {
+    nullable: true,
+  })
+  openingWeekDays?: OpeningWeekDayCreateNestedManyWithoutStoresInput;
 
   @ApiProperty({
     required: false,

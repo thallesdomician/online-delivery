@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { OpenHourCreateNestedManyWithoutOpeningWeekDaysInput } from "./OpenHourCreateNestedManyWithoutOpeningWeekDaysInput";
 import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
+import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
 import { EnumOpeningWeekDayWeekday } from "./EnumOpeningWeekDayWeekday";
 @InputType()
 class OpeningWeekDayCreateInput {
@@ -28,6 +29,18 @@ class OpeningWeekDayCreateInput {
     nullable: true,
   })
   openHour?: OpenHourCreateNestedManyWithoutOpeningWeekDaysInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => StoreWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => StoreWhereUniqueInput)
+  @IsOptional()
+  @Field(() => StoreWhereUniqueInput, {
+    nullable: true,
+  })
+  store?: StoreWhereUniqueInput | null;
 
   @ApiProperty({
     required: true,

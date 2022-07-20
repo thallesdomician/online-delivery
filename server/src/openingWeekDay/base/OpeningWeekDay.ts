@@ -20,6 +20,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { OpenHour } from "../../openHour/base/OpenHour";
+import { Store } from "../../store/base/Store";
 import { EnumOpeningWeekDayWeekday } from "./EnumOpeningWeekDayWeekday";
 @ObjectType()
 class OpeningWeekDay {
@@ -47,6 +48,15 @@ class OpeningWeekDay {
   @Type(() => OpenHour)
   @IsOptional()
   openHour?: Array<OpenHour>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Store,
+  })
+  @ValidateNested()
+  @Type(() => Store)
+  @IsOptional()
+  store?: Store | null;
 
   @ApiProperty({
     required: true,
