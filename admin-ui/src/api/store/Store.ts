@@ -5,7 +5,7 @@ import { Product } from "../product/Product";
 import { User } from "../user/User";
 
 export type Store = {
-  address?: Address;
+  address?: Address | null;
   contact?: Array<Contact>;
   createdAt: Date;
   id: string;

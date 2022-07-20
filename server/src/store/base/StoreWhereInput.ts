@@ -16,8 +16,6 @@ import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { StringFilter } from "../../util/StringFilter";
 import { OpeningWeekDayListRelationFilter } from "../../openingWeekDay/base/OpeningWeekDayListRelationFilter";
-import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
-import { UserListRelationFilter } from "../../user/base/UserListRelationFilter";
 @InputType()
 class StoreWhereInput {
   @ApiProperty({
@@ -68,18 +66,6 @@ class StoreWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => ProductListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => ProductListRelationFilter)
-  @IsOptional()
-  @Field(() => ProductListRelationFilter, {
-    nullable: true,
-  })
-  products?: ProductListRelationFilter;
-
-  @ApiProperty({
-    required: false,
     type: StringFilter,
   })
   @Type(() => StringFilter)
@@ -88,17 +74,5 @@ class StoreWhereInput {
     nullable: true,
   })
   slug?: StringFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => UserListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => UserListRelationFilter)
-  @IsOptional()
-  @Field(() => UserListRelationFilter, {
-    nullable: true,
-  })
-  user?: UserListRelationFilter;
 }
 export { StoreWhereInput };

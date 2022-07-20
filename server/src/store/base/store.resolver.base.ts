@@ -91,9 +91,11 @@ export class StoreResolverBase {
       data: {
         ...args.data,
 
-        address: {
-          connect: args.data.address,
-        },
+        address: args.data.address
+          ? {
+              connect: args.data.address,
+            }
+          : undefined,
       },
     });
   }
@@ -114,9 +116,11 @@ export class StoreResolverBase {
         data: {
           ...args.data,
 
-          address: {
-            connect: args.data.address,
-          },
+          address: args.data.address
+            ? {
+                connect: args.data.address,
+              }
+            : undefined,
         },
       });
     } catch (error) {

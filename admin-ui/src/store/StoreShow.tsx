@@ -12,7 +12,6 @@ import {
 } from "react-admin";
 
 import { STORE_TITLE_FIELD } from "./StoreTitle";
-import { CATEGORY_TITLE_FIELD } from "../category/CategoryTitle";
 import { ADDRESS_TITLE_FIELD } from "../address/AddressTitle";
 
 export const StoreShow = (props: ShowProps): React.ReactElement => {
@@ -55,30 +54,6 @@ export const StoreShow = (props: ShowProps): React.ReactElement => {
             </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
             <TextField label="Weekday" source="weekday" />
-          </Datagrid>
-        </ReferenceManyField>
-        <ReferenceManyField
-          reference="Product"
-          target="StoreId"
-          label="Products"
-        >
-          <Datagrid rowClick="show">
-            <ReferenceField
-              label="Category"
-              source="category.id"
-              reference="Category"
-            >
-              <TextField source={CATEGORY_TITLE_FIELD} />
-            </ReferenceField>
-            <DateField source="createdAt" label="Created At" />
-            <TextField label="Description" source="description" />
-            <TextField label="ID" source="id" />
-            <TextField label="Item Price" source="itemPrice" />
-            <TextField label="Name" source="name" />
-            <ReferenceField label="Store" source="store.id" reference="Store">
-              <TextField source={STORE_TITLE_FIELD} />
-            </ReferenceField>
-            <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>
       </SimpleShowLayout>
