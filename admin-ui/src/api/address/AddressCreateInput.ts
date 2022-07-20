@@ -4,7 +4,7 @@ export type AddressCreateInput = {
   city?: string | null;
   neighborhood?: string | null;
   state?: string | null;
-  store: StoreWhereUniqueInput;
+  store?: StoreWhereUniqueInput;
   street?: string | null;
   zip?: number | null;
 };

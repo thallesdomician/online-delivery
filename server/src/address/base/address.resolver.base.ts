@@ -101,9 +101,11 @@ export class AddressResolverBase {
       data: {
         ...args.data,
 
-        store: {
-          connect: args.data.store,
-        },
+        store: args.data.store
+          ? {
+              connect: args.data.store,
+            }
+          : undefined,
       },
     });
   }
@@ -124,9 +126,11 @@ export class AddressResolverBase {
         data: {
           ...args.data,
 
-          store: {
-            connect: args.data.store,
-          },
+          store: args.data.store
+            ? {
+                connect: args.data.store,
+              }
+            : undefined,
         },
       });
     } catch (error) {
