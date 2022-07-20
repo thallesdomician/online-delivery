@@ -206,7 +206,7 @@ export class UserControllerBase {
     const results = await this.service.findStores(params.id, {
       ...query,
       select: {
-        addresses: {
+        address: {
           select: {
             id: true,
           },

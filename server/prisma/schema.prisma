@@ -45,15 +45,15 @@ model Product {
 }
 
 model Store {
-  addresses   Address?  @relation(fields: [addressesId], references: [id])
-  addressesId String?
-  createdAt   DateTime  @default(now())
-  id          String    @id @default(cuid())
-  name        String
-  products    Product[]
-  slug        String    @unique
-  updatedAt   DateTime  @updatedAt
-  user        User[]
+  address   Address?  @relation(fields: [addressId], references: [id])
+  addressId String?
+  createdAt DateTime  @default(now())
+  id        String    @id @default(cuid())
+  name      String
+  products  Product[]
+  slug      String    @unique
+  updatedAt DateTime  @updatedAt
+  user      User[]
 }
 
 model Category {

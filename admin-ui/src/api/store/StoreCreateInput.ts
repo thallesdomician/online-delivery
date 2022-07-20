@@ -3,7 +3,7 @@ import { ProductCreateNestedManyWithoutStoresInput } from "./ProductCreateNested
 import { UserCreateNestedManyWithoutStoresInput } from "./UserCreateNestedManyWithoutStoresInput";
 
 export type StoreCreateInput = {
-  addresses?: AddressWhereUniqueInput | null;
+  address?: AddressWhereUniqueInput | null;
   name: string;
   products?: ProductCreateNestedManyWithoutStoresInput;
   slug: string;

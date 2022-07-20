@@ -19,11 +19,7 @@ export const StoreShow = (props: ShowProps): React.ReactElement => {
   return (
     <Show {...props}>
       <SimpleShowLayout>
-        <ReferenceField
-          label="Addresses"
-          source="address.id"
-          reference="Address"
-        >
+        <ReferenceField label="Address" source="address.id" reference="Address">
           <TextField source={ADDRESS_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="createdAt" label="Created At" />

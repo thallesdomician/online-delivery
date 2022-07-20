@@ -69,11 +69,11 @@ export class StoreServiceBase {
       .user(args);
   }
 
-  async getAddresses(parentId: string): Promise<Address | null> {
+  async getAddress(parentId: string): Promise<Address | null> {
     return this.prisma.store
       .findUnique({
         where: { id: parentId },
       })
-      .addresses();
+      .address();
   }
 }

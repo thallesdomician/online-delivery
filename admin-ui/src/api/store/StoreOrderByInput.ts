@@ -1,7 +1,7 @@
 import { SortOrder } from "../../util/SortOrder";
 
 export type StoreOrderByInput = {
-  addressesId?: SortOrder;
+  addressId?: SortOrder;
   createdAt?: SortOrder;
   id?: SortOrder;
   name?: SortOrder;

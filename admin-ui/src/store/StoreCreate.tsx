@@ -19,11 +19,7 @@ export const StoreCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <ReferenceInput
-          source="address.id"
-          reference="Address"
-          label="Addresses"
-        >
+        <ReferenceInput source="address.id" reference="Address" label="Address">
           <SelectInput optionText={AddressTitle} />
         </ReferenceInput>
         <TextInput label="Name" source="name" />

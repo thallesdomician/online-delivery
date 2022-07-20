@@ -25,7 +25,7 @@ class StoreOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  addressesId?: SortOrder;
+  addressId?: SortOrder;
 
   @ApiProperty({
     required: false,

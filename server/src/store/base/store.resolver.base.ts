@@ -87,9 +87,9 @@ export class StoreResolverBase {
       data: {
         ...args.data,
 
-        addresses: args.data.addresses
+        address: args.data.address
           ? {
-              connect: args.data.addresses,
+              connect: args.data.address,
             }
           : undefined,
       },
@@ -112,9 +112,9 @@ export class StoreResolverBase {
         data: {
           ...args.data,
 
-          addresses: args.data.addresses
+          address: args.data.address
             ? {
-                connect: args.data.addresses,
+                connect: args.data.address,
               }
             : undefined,
         },
@@ -197,8 +197,8 @@ export class StoreResolverBase {
     action: "read",
     possession: "any",
   })
-  async addresses(@graphql.Parent() parent: Store): Promise<Address | null> {
-    const result = await this.service.getAddresses(parent.id);
+  async address(@graphql.Parent() parent: Store): Promise<Address | null> {
+    const result = await this.service.getAddress(parent.id);
 
     if (!result) {
       return null;

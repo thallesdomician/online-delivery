@@ -3,7 +3,7 @@ import { Product } from "../product/Product";
 import { User } from "../user/User";
 
 export type Store = {
-  addresses?: Address | null;
+  address?: Address | null;
   createdAt: Date;
   id: string;
   name: string;
