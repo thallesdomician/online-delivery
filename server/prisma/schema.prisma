@@ -47,6 +47,7 @@ model Product {
 model Store {
   address   Address?  @relation(fields: [addressId], references: [id])
   addressId String?
+  contact   Contact[]
   createdAt DateTime  @default(now())
   id        String    @id @default(cuid())
   name      String
@@ -68,6 +69,8 @@ model Category {
 model Contact {
   createdAt DateTime           @default(now())
   id        String             @id @default(cuid())
+  stores    Store?             @relation(fields: [storesId], references: [id])
+  storesId  String?
   updatedAt DateTime           @updatedAt
   value     EnumContactValue[]
 }

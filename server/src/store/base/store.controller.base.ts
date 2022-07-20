@@ -28,6 +28,9 @@ import { StoreWhereUniqueInput } from "./StoreWhereUniqueInput";
 import { StoreFindManyArgs } from "./StoreFindManyArgs";
 import { StoreUpdateInput } from "./StoreUpdateInput";
 import { Store } from "./Store";
+import { ContactFindManyArgs } from "../../contact/base/ContactFindManyArgs";
+import { Contact } from "../../contact/base/Contact";
+import { ContactWhereUniqueInput } from "../../contact/base/ContactWhereUniqueInput";
 import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
@@ -222,6 +225,109 @@ export class StoreControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "Contact",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/contact")
+  @ApiNestedQuery(ContactFindManyArgs)
+  async findManyContact(
+    @common.Req() request: Request,
+    @common.Param() params: StoreWhereUniqueInput
+  ): Promise<Contact[]> {
+    const query = plainToClass(ContactFindManyArgs, request.query);
+    const results = await this.service.findContact(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+
+        stores: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+        value: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Store",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/contact")
+  async connectContact(
+    @common.Param() params: StoreWhereUniqueInput,
+    @common.Body() body: ContactWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      contact: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Store",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/contact")
+  async updateContact(
+    @common.Param() params: StoreWhereUniqueInput,
+    @common.Body() body: ContactWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      contact: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Store",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/contact")
+  async disconnectContact(
+    @common.Param() params: StoreWhereUniqueInput,
+    @common.Body() body: ContactWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      contact: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

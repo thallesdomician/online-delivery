@@ -11,8 +11,15 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString, IsEnum, IsOptional } from "class-validator";
+import {
+  IsDate,
+  IsString,
+  ValidateNested,
+  IsOptional,
+  IsEnum,
+} from "class-validator";
 import { Type } from "class-transformer";
+import { Store } from "../../store/base/Store";
 import { EnumContactValue } from "./EnumContactValue";
 @ObjectType()
 class Contact {
@@ -31,6 +38,15 @@ class Contact {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => Store,
+  })
+  @ValidateNested()
+  @Type(() => Store)
+  @IsOptional()
+  stores?: Store | null;
 
   @ApiProperty({
     required: true,

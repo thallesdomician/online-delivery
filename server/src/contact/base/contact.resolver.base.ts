@@ -19,12 +19,14 @@ import { isRecordNotFoundError } from "../../prisma.util";
 import { MetaQueryPayload } from "../../util/MetaQueryPayload";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
+import { Public } from "../../decorators/public.decorator";
 import { CreateContactArgs } from "./CreateContactArgs";
 import { UpdateContactArgs } from "./UpdateContactArgs";
 import { DeleteContactArgs } from "./DeleteContactArgs";
 import { ContactFindManyArgs } from "./ContactFindManyArgs";
 import { ContactFindUniqueArgs } from "./ContactFindUniqueArgs";
 import { Contact } from "./Contact";
+import { Store } from "../../store/base/Store";
 import { ContactService } from "../contact.service";
 
 @graphql.Resolver(() => Contact)
@@ -96,7 +98,15 @@ export class ContactResolverBase {
   ): Promise<Contact> {
     return await this.service.create({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        stores: args.data.stores
+          ? {
+              connect: args.data.stores,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -113,7 +123,15 @@ export class ContactResolverBase {
     try {
       return await this.service.update({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          stores: args.data.stores
+            ? {
+                connect: args.data.stores,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -144,5 +162,16 @@ export class ContactResolverBase {
       }
       throw error;
     }
+  }
+
+  @Public()
+  @graphql.ResolveField(() => Store, { nullable: true })
+  async stores(@graphql.Parent() parent: Contact): Promise<Store | null> {
+    const result = await this.service.getStores(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

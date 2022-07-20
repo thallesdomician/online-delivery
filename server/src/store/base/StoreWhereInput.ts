@@ -11,13 +11,26 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { ContactListRelationFilter } from "../../contact/base/ContactListRelationFilter";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { StringFilter } from "../../util/StringFilter";
 import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
 import { UserListRelationFilter } from "../../user/base/UserListRelationFilter";
 @InputType()
 class StoreWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => ContactListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ContactListRelationFilter)
+  @IsOptional()
+  @Field(() => ContactListRelationFilter, {
+    nullable: true,
+  })
+  contact?: ContactListRelationFilter;
+
   @ApiProperty({
     required: false,
     type: StringFilter,

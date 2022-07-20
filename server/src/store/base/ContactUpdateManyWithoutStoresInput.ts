@@ -10,58 +10,35 @@ https://docs.amplication.com/docs/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { InputType, Field } from "@nestjs/graphql";
+import { ContactWhereUniqueInput } from "../../contact/base/ContactWhereUniqueInput";
 import { ApiProperty } from "@nestjs/swagger";
-import { SortOrder } from "../../util/SortOrder";
-
-@InputType({
-  isAbstract: true,
-  description: undefined,
-})
-class ContactOrderByInput {
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @Field(() => SortOrder, {
+@InputType()
+class ContactUpdateManyWithoutStoresInput {
+  @Field(() => [ContactWhereUniqueInput], {
     nullable: true,
   })
-  createdAt?: SortOrder;
-
   @ApiProperty({
     required: false,
-    enum: ["asc", "desc"],
+    type: () => [ContactWhereUniqueInput],
   })
-  @Field(() => SortOrder, {
+  connect?: Array<ContactWhereUniqueInput>;
+
+  @Field(() => [ContactWhereUniqueInput], {
     nullable: true,
   })
-  id?: SortOrder;
-
   @ApiProperty({
     required: false,
-    enum: ["asc", "desc"],
+    type: () => [ContactWhereUniqueInput],
   })
-  @Field(() => SortOrder, {
+  disconnect?: Array<ContactWhereUniqueInput>;
+
+  @Field(() => [ContactWhereUniqueInput], {
     nullable: true,
   })
-  storesId?: SortOrder;
-
   @ApiProperty({
     required: false,
-    enum: ["asc", "desc"],
+    type: () => [ContactWhereUniqueInput],
   })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  updatedAt?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  value?: SortOrder;
+  set?: Array<ContactWhereUniqueInput>;
 }
-
-export { ContactOrderByInput };
+export { ContactUpdateManyWithoutStoresInput };

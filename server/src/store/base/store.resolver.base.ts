@@ -26,6 +26,8 @@ import { DeleteStoreArgs } from "./DeleteStoreArgs";
 import { StoreFindManyArgs } from "./StoreFindManyArgs";
 import { StoreFindUniqueArgs } from "./StoreFindUniqueArgs";
 import { Store } from "./Store";
+import { ContactFindManyArgs } from "../../contact/base/ContactFindManyArgs";
+import { Contact } from "../../contact/base/Contact";
 import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
 import { UserFindManyArgs } from "../../user/base/UserFindManyArgs";
@@ -148,6 +150,26 @@ export class StoreResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Contact])
+  @nestAccessControl.UseRoles({
+    resource: "Contact",
+    action: "read",
+    possession: "any",
+  })
+  async contact(
+    @graphql.Parent() parent: Store,
+    @graphql.Args() args: ContactFindManyArgs
+  ): Promise<Contact[]> {
+    const results = await this.service.findContact(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
