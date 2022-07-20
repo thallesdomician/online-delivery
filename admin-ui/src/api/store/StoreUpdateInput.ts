@@ -3,7 +3,7 @@ import { ProductUpdateManyWithoutStoresInput } from "./ProductUpdateManyWithoutS
 import { UserUpdateManyWithoutStoresInput } from "./UserUpdateManyWithoutStoresInput";
 
 export type StoreUpdateInput = {
-  addresses?: AddressWhereUniqueInput | null;
+  address?: AddressWhereUniqueInput | null;
   name?: string;
   products?: ProductUpdateManyWithoutStoresInput;
   slug?: string;

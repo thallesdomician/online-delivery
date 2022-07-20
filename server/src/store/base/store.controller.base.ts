@@ -56,14 +56,14 @@ export class StoreControllerBase {
       data: {
         ...data,
 
-        addresses: data.addresses
+        address: data.address
           ? {
-              connect: data.addresses,
+              connect: data.address,
             }
           : undefined,
       },
       select: {
-        addresses: {
+        address: {
           select: {
             id: true,
           },
@@ -88,7 +88,7 @@ export class StoreControllerBase {
     return this.service.findMany({
       ...args,
       select: {
-        addresses: {
+        address: {
           select: {
             id: true,
           },
@@ -114,7 +114,7 @@ export class StoreControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        addresses: {
+        address: {
           select: {
             id: true,
           },
@@ -155,14 +155,14 @@ export class StoreControllerBase {
         data: {
           ...data,
 
-          addresses: data.addresses
+          address: data.address
             ? {
-                connect: data.addresses,
+                connect: data.address,
               }
             : undefined,
         },
         select: {
-          addresses: {
+          address: {
             select: {
               id: true,
             },
@@ -201,7 +201,7 @@ export class StoreControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          addresses: {
+          address: {
             select: {
               id: true,
             },

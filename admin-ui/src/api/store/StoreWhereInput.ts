@@ -4,7 +4,7 @@ import { ProductListRelationFilter } from "../product/ProductListRelationFilter"
 import { UserListRelationFilter } from "../user/UserListRelationFilter";
 
 export type StoreWhereInput = {
-  addresses?: AddressWhereUniqueInput;
+  address?: AddressWhereUniqueInput;
   id?: StringFilter;
   name?: StringFilter;
   products?: ProductListRelationFilter;

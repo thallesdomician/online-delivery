@@ -25,7 +25,7 @@ class Store {
   @ValidateNested()
   @Type(() => Address)
   @IsOptional()
-  addresses?: Address | null;
+  address?: Address | null;
 
   @ApiProperty({
     required: true,
