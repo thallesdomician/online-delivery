@@ -62,11 +62,9 @@ export class StoreControllerBase {
       data: {
         ...data,
 
-        address: data.address
-          ? {
-              connect: data.address,
-            }
-          : undefined,
+        address: {
+          connect: data.address,
+        },
       },
       select: {
         address: {
@@ -161,11 +159,9 @@ export class StoreControllerBase {
         data: {
           ...data,
 
-          address: data.address
-            ? {
-                connect: data.address,
-              }
-            : undefined,
+          address: {
+            connect: data.address,
+          },
         },
         select: {
           address: {

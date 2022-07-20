@@ -72,11 +72,12 @@ class Address {
   state!: string | null;
 
   @ApiProperty({
-    required: true,
+    required: false,
     type: () => Store,
   })
   @ValidateNested()
   @Type(() => Store)
+  @IsOptional()
   store?: Store;
 
   @ApiProperty({

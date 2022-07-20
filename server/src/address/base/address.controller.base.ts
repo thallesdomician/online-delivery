@@ -49,9 +49,11 @@ export class AddressControllerBase {
       data: {
         ...data,
 
-        store: {
-          connect: data.store,
-        },
+        store: data.store
+          ? {
+              connect: data.store,
+            }
+          : undefined,
       },
       select: {
         city: true,
@@ -168,9 +170,11 @@ export class AddressControllerBase {
         data: {
           ...data,
 
-          store: {
-            connect: data.store,
-          },
+          store: data.store
+            ? {
+                connect: data.store,
+              }
+            : undefined,
         },
         select: {
           city: true,

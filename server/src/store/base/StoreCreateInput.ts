@@ -21,16 +21,13 @@ import { UserCreateNestedManyWithoutStoresInput } from "./UserCreateNestedManyWi
 @InputType()
 class StoreCreateInput {
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => AddressWhereUniqueInput,
   })
   @ValidateNested()
   @Type(() => AddressWhereUniqueInput)
-  @IsOptional()
-  @Field(() => AddressWhereUniqueInput, {
-    nullable: true,
-  })
-  address?: AddressWhereUniqueInput | null;
+  @Field(() => AddressWhereUniqueInput)
+  address!: AddressWhereUniqueInput;
 
   @ApiProperty({
     required: false,

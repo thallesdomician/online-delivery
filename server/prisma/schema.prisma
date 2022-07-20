@@ -45,8 +45,8 @@ model Product {
 }
 
 model Store {
-  address         Address?         @relation(fields: [addressId], references: [id])
-  addressId       String?
+  address         Address          @relation(fields: [addressId], references: [id])
+  addressId       String
   contact         Contact[]
   createdAt       DateTime         @default(now())
   id              String           @id @default(cuid())
