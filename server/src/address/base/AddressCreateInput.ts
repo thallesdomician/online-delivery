@@ -50,16 +50,13 @@ class AddressCreateInput {
   state?: string | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => StoreWhereUniqueInput,
   })
   @ValidateNested()
   @Type(() => StoreWhereUniqueInput)
-  @IsOptional()
-  @Field(() => StoreWhereUniqueInput, {
-    nullable: true,
-  })
-  store?: StoreWhereUniqueInput;
+  @Field(() => StoreWhereUniqueInput)
+  store!: StoreWhereUniqueInput;
 
   @ApiProperty({
     required: false,
