@@ -1,0 +1,106 @@
+datasource postgres {
+  provider = "postgresql"
+  url      = env("POSTGRESQL_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  createdAt DateTime @default(now())
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     String[]
+  stores    Store[]
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
+
+model Address {
+  city         String?
+  createdAt    DateTime @default(now())
+  id           String   @id @default(cuid())
+  neighborhood String?
+  state        String?
+  store        Store
+  street       String?
+  updatedAt    DateTime @updatedAt
+  zip          Int?
+}
+
+model Product {
+  category    Category? @relation(fields: [categoryId], references: [id])
+  categoryId  String?
+  createdAt   DateTime  @default(now())
+  description String?
+  id          String    @id @default(cuid())
+  itemPrice   Float?
+  name        String?
+  store       Store?    @relation(fields: [storeId], references: [id])
+  storeId     String?
+  updatedAt   DateTime  @updatedAt
+}
+
+model Store {
+  addresses   Address?  @relation(fields: [addressesId], references: [id])
+  addressesId String?
+  createdAt   DateTime  @default(now())
+  id          String    @id @default(cuid())
+  name        String
+  products    Product[]
+  slug        String    @unique
+  updatedAt   DateTime  @updatedAt
+  user        User[]
+}
+
+model Category {
+  createdAt DateTime  @default(now())
+  id        String    @id @default(cuid())
+  name      String?   @unique
+  products  Product[]
+  slug      String?
+  updatedAt DateTime  @updatedAt
+}
+
+model Contact {
+  createdAt DateTime           @default(now())
+  id        String             @id @default(cuid())
+  updatedAt DateTime           @updatedAt
+  value     EnumContactValue[]
+}
+
+model OpeningWeekDay {
+  createdAt DateTime                    @default(now())
+  id        String                      @id @default(cuid())
+  openHour  OpenHour[]
+  updatedAt DateTime                    @updatedAt
+  weekday   EnumOpeningWeekDayWeekday[]
+}
+
+model OpenHour {
+  createdAt         DateTime        @default(now())
+  id                String          @id @default(cuid())
+  openingWeekDays   OpeningWeekDay? @relation(fields: [openingWeekDaysId], references: [id])
+  openingWeekDaysId String?
+  startTime         String?
+  updatedAt         DateTime        @updatedAt
+}
+
+enum EnumContactValue {
+  whatsapp
+  mail
+  cellPhone
+  phone
+}
+
+enum EnumOpeningWeekDayWeekday {
+  sunday
+  monday
+  tuesday
+  wednesday
+  thursday
+  saturday
+}
