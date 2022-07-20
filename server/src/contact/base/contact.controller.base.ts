@@ -46,10 +46,25 @@ export class ContactControllerBase {
   @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })
   async create(@common.Body() data: ContactCreateInput): Promise<Contact> {
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        stores: data.stores
+          ? {
+              connect: data.stores,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
         id: true,
+
+        stores: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         value: true,
       },
@@ -73,6 +88,13 @@ export class ContactControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        stores: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         value: true,
       },
@@ -97,6 +119,13 @@ export class ContactControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        stores: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         value: true,
       },
@@ -126,10 +155,25 @@ export class ContactControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          stores: data.stores
+            ? {
+                connect: data.stores,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
           id: true,
+
+          stores: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           value: true,
         },
@@ -162,6 +206,13 @@ export class ContactControllerBase {
         select: {
           createdAt: true,
           id: true,
+
+          stores: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           value: true,
         },

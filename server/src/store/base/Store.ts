@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Address } from "../../address/base/Address";
 import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
+import { Contact } from "../../contact/base/Contact";
 import { Product } from "../../product/base/Product";
 import { User } from "../../user/base/User";
 @ObjectType()
@@ -26,6 +27,15 @@ class Store {
   @Type(() => Address)
   @IsOptional()
   address?: Address | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Contact],
+  })
+  @ValidateNested()
+  @Type(() => Contact)
+  @IsOptional()
+  contact?: Array<Contact>;
 
   @ApiProperty({
     required: true,

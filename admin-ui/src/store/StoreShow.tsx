@@ -11,8 +11,8 @@ import {
   Datagrid,
 } from "react-admin";
 
-import { CATEGORY_TITLE_FIELD } from "../category/CategoryTitle";
 import { STORE_TITLE_FIELD } from "./StoreTitle";
+import { CATEGORY_TITLE_FIELD } from "../category/CategoryTitle";
 import { ADDRESS_TITLE_FIELD } from "../address/AddressTitle";
 
 export const StoreShow = (props: ShowProps): React.ReactElement => {
@@ -27,6 +27,21 @@ export const StoreShow = (props: ShowProps): React.ReactElement => {
         <TextField label="Name" source="name" />
         <TextField label="Slug" source="slug" />
         <DateField source="updatedAt" label="Updated At" />
+        <ReferenceManyField
+          reference="Contact"
+          target="StoreId"
+          label="Contacts"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <ReferenceField label="Stores" source="store.id" reference="Store">
+              <TextField source={STORE_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+            <TextField label="value" source="value" />
+          </Datagrid>
+        </ReferenceManyField>
         <ReferenceManyField
           reference="Product"
           target="StoreId"
