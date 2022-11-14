@@ -14,6 +14,15 @@ import path from 'path'
 import { databaseConfig } from '@app/common/configs'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { User } from '@app/user/entities/user.entity'
+import { Company } from '@app/company/entities/company.entity'
+import { OperatingDay } from '@app/operating-day/entities/operating-day.entity'
+import { Address } from '@app/address/entities/address.entity'
+import { Payment } from '@app/payment/entities/payment.entity'
+import { OpenTime } from '@app/open-time/entities/open-time.entity'
+import { Category } from '@app/category/entities/category.entity'
+import { Contact } from '@app/contact/entities/contact.entity'
+import { Product } from '@app/product/entities/product.entity'
+import { AdditionalItem } from '@app/additional-item/entities/additional-item.entity'
 
 @Global()
 @Module({})
@@ -66,7 +75,18 @@ export class CommonModule {
               database: configService.get<string>('database.name'),
               synchronize: configService.get<boolean>('database.synchronize'),
               dropSchema: configService.get<boolean>('database.dropSchema'),
-              entities: [User],
+              entities: [
+                User,
+                Company,
+                Contact,
+                Address,
+                Payment,
+                OperatingDay,
+                OpenTime,
+                Category,
+                Product,
+                AdditionalItem
+              ],
               autoLoadEntities: true
             }
           }

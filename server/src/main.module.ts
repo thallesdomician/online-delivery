@@ -2,6 +2,15 @@ import { CommonModule } from '@app/common/common.module'
 import { Module } from '@nestjs/common'
 import { AuthModule } from './auth/auth.module'
 import { UserModule } from './user/user.module'
+import { CompanyModule } from './company/company.module'
+import { OperatingDayModule } from './operating-day/operating-day.module'
+import { OpenTimeModule } from './open-time/open-time.module'
+import { ContactModule } from './contact/contact.module'
+import { CategoryModule } from './category/category.module'
+import { PaymentModule } from './payment/payment.module'
+import { AddressModule } from './address/address.module'
+import { ProductModule } from './product/product.module'
+import { AdditionalItemModule } from './additional-item/additional-item.module'
 
 @Module({
   imports: [
@@ -15,7 +24,16 @@ import { UserModule } from './user/user.module'
       }
     }),
     AuthModule,
-    UserModule
+    UserModule,
+    CompanyModule,
+    OperatingDayModule,
+    OpenTimeModule,
+    ContactModule,
+    CategoryModule,
+    PaymentModule,
+    AddressModule,
+    ProductModule,
+    AdditionalItemModule
   ],
   providers: []
 })

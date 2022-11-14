@@ -4,14 +4,14 @@ import { BaseEntity, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn 
 export abstract class EntityDefault extends BaseEntity {
   @Field(() => String, { description: 'UUID', name: 'uuid' })
   @PrimaryGeneratedColumn('uuid', { name: 'id' })
-  uuid: string
+  id: string
 
   @CreateDateColumn({
     type: 'timestamp',
-    name: 'createddAt',
+    name: 'createdAt',
     default: () => 'CURRENT_TIMESTAMP(6)'
   })
-  created: Date
+  createdAt: Date
 
   @UpdateDateColumn({
     type: 'timestamp',
@@ -19,5 +19,5 @@ export abstract class EntityDefault extends BaseEntity {
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)'
   })
-  updated: Date
+  updatedAt: Date
 }

@@ -7,14 +7,161 @@ type User {
   username: String!
 }
 
+type Category {
+  """Dados da Empresa"""
+  company: Company!
+}
+
+type Product {
+  """Dados da Empresa"""
+  company: Company!
+
+  """Nome do Produto"""
+  name: String!
+
+  """Descricao do Produto"""
+  description: String!
+
+  """Categoria do Produto"""
+  category: Category!
+}
+
+type AdditionalItem {
+  """Dados da Empresa"""
+  company: Company!
+
+  """Nome do Item Adicional"""
+  name: String!
+
+  """Descricao do Item"""
+  description: String!
+}
+
+type Contact {
+  """Tipo de Contato"""
+  type: EContactType!
+
+  """Valor"""
+  value: String!
+
+  """Dados da Empresa"""
+  company: Company!
+}
+
+enum EContactType {
+  cellPhone
+  email
+  phone
+  whatsapp
+}
+
+type OperatingDay {
+  day: EWeekeDay!
+
+  """Dados da Empresa"""
+  company: Company!
+}
+
+enum EWeekeDay {
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+  Sunday
+}
+
+type OpenTime {
+  """Dados da Empresa"""
+  company: Company!
+}
+
+"""Forma de pagamento"""
+type Payment {
+  """Dados da Empresa Empresa"""
+  company: Company!
+}
+
+"""Dados da Empresa"""
+type Company {
+  """Nome da Empresa"""
+  name: String!
+
+  """slug"""
+  slug: String!
+
+  """Descricao da Empresa"""
+  description: String!
+
+  """Pedido mínimo"""
+  minimumOrder: Float!
+}
+
+type Address {
+  """Logradouro"""
+  street: String!
+
+  """número"""
+  number: String!
+
+  """Complemento"""
+  complement: String!
+
+  """Bairro"""
+  district: String!
+
+  """Cidade"""
+  city: String!
+
+  """CEP"""
+  zipcode: String!
+}
+
 type Query {
   user(id: Int!): User!
+  company(id: Int!): Company!
+  operatingDay(id: Int!): OperatingDay!
+  openTime(id: Int!): OpenTime!
+  contact(id: Int!): Contact!
+  category(id: Int!): Category!
+  payment(id: Int!): Payment!
+  address(id: Int!): Address!
+  product(id: Int!): Product!
+  additionalItem(id: Int!): AdditionalItem!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
+  createCompany(createCompanyInput: CreateCompanyInput!): Company!
+  updateCompany(updateCompanyInput: UpdateCompanyInput!): Company!
+  removeCompany(id: Int!): Company!
+  createOperatingDay(createOperatingDayInput: CreateOperatingDayInput!): OperatingDay!
+  updateOperatingDay(updateOperatingDayInput: UpdateOperatingDayInput!): OperatingDay!
+  removeOperatingDay(id: Int!): OperatingDay!
+  createOpenTime(createOpenTimeInput: CreateOpenTimeInput!): OpenTime!
+  updateOpenTime(updateOpenTimeInput: UpdateOpenTimeInput!): OpenTime!
+  removeOpenTime(id: Int!): OpenTime!
+  createContact(createContactInput: CreateContactInput!): Contact!
+  updateContact(updateContactInput: UpdateContactInput!): Contact!
+  removeContact(id: Int!): Contact!
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
+  removeCategory(id: Int!): Category!
+  createPayment(createPaymentInput: CreatePaymentInput!): Payment!
+  updatePayment(updatePaymentInput: UpdatePaymentInput!): Payment!
+  removePayment(id: Int!): Payment!
+  createAddress(createAddressInput: CreateAddressInput!): Address!
+  updateAddress(updateAddressInput: UpdateAddressInput!): Address!
+  removeAddress(id: Int!): Address!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(updateProductInput: UpdateProductInput!): Product!
+  removeProduct(id: Int!): Product!
+  createAdditionalItem(createAdditionalItemInput: CreateAdditionalItemInput!): AdditionalItem!
+  updateAdditionalItem(updateAdditionalItemInput: UpdateAdditionalItemInput!): AdditionalItem!
+  removeAdditionalItem(id: Int!): AdditionalItem!
 }
 
 input CreateUserInput {
@@ -23,6 +170,105 @@ input CreateUserInput {
 }
 
 input UpdateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateCompanyInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateCompanyInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateOperatingDayInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateOperatingDayInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateOpenTimeInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateOpenTimeInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateContactInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateContactInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateCategoryInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateCategoryInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreatePaymentInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdatePaymentInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateAddressInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateAddressInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateProductInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateProductInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateAdditionalItemInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateAdditionalItemInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
