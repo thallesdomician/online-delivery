@@ -16,17 +16,17 @@ export class Company extends EntityDefault {
   @Column('varchar', { length: 60, nullable: false })
   name: string
 
-  @Field(() => String, { description: 'slug' })
+  @Field(() => String, { description: 'slug', nullable: true })
   @Index({ unique: true })
-  @Column('varchar', { length: 60, nullable: false })
+  @Column('varchar', { length: 60, nullable: true })
   slug: string
 
-  @Field(() => String, { description: 'Descricao da Empresa' })
+  @Field(() => String, { description: 'Descricao da Empresa', nullable: true })
   @Column('text', { nullable: true })
-  description: string
+  description?: string
 
-  @Field(() => Float, { description: 'Pedido mínimo' })
-  @Column('float', { default: 0 })
+  @Field(() => Float, { description: 'Pedido mínimo', nullable: true })
+  @Column('float', { default: 0, nullable: true })
   minimumOrder: number
 
   @OneToMany(() => Payment, (payment) => payment.company)

@@ -39,3 +39,4 @@ data/tempo-data
 
 
 .history/
+.env

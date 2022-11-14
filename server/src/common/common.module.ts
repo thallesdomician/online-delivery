@@ -7,7 +7,6 @@ import { DynamicModule, Global, Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TerminusModule } from '@nestjs/terminus'
 import { ThrottlerModule, ThrottlerModuleOptions } from '@nestjs/throttler'
-import { AcceptLanguageResolver, I18nModule, QueryResolver } from 'nestjs-i18n'
 import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import path from 'path'
@@ -46,14 +45,6 @@ export class CommonModule {
         ConfigModule.forFeature(databaseConfig()),
         HttpModule,
         TerminusModule,
-        I18nModule.forRoot({
-          fallbackLanguage: 'en',
-          loaderOptions: {
-            path: path.join(__dirname, '/../i18n/lang'),
-            watch: true
-          },
-          resolvers: [{ use: QueryResolver, options: ['lang', 'locale'] }, AcceptLanguageResolver]
-        }),
         ThrottlerModule.forRootAsync({
           inject: [ConfigService],
           useFactory: async (configService: ConfigService): Promise<ThrottlerModuleOptions> => {

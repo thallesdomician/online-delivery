@@ -3,16 +3,25 @@
 # ------------------------------------------------------
 
 type User {
+  """UUID"""
+  id: String!
+
   """username"""
   username: String!
 }
 
 type Category {
+  """UUID"""
+  id: String!
+
   """Dados da Empresa"""
   company: Company!
 }
 
 type Product {
+  """UUID"""
+  id: String!
+
   """Dados da Empresa"""
   company: Company!
 
@@ -27,6 +36,9 @@ type Product {
 }
 
 type AdditionalItem {
+  """UUID"""
+  id: String!
+
   """Dados da Empresa"""
   company: Company!
 
@@ -38,6 +50,9 @@ type AdditionalItem {
 }
 
 type Contact {
+  """UUID"""
+  id: String!
+
   """Tipo de Contato"""
   type: EContactType!
 
@@ -56,6 +71,8 @@ enum EContactType {
 }
 
 type OperatingDay {
+  """UUID"""
+  id: String!
   day: EWeekeDay!
 
   """Dados da Empresa"""
@@ -73,32 +90,44 @@ enum EWeekeDay {
 }
 
 type OpenTime {
+  """UUID"""
+  id: String!
+
   """Dados da Empresa"""
   company: Company!
 }
 
 """Forma de pagamento"""
 type Payment {
+  """UUID"""
+  id: String!
+
   """Dados da Empresa Empresa"""
   company: Company!
 }
 
 """Dados da Empresa"""
 type Company {
+  """UUID"""
+  id: String!
+
   """Nome da Empresa"""
   name: String!
 
   """slug"""
-  slug: String!
+  slug: String
 
   """Descricao da Empresa"""
-  description: String!
+  description: String
 
   """Pedido mínimo"""
-  minimumOrder: Float!
+  minimumOrder: Float
 }
 
 type Address {
+  """UUID"""
+  id: String!
+
   """Logradouro"""
   street: String!
 
@@ -176,14 +205,23 @@ input UpdateUserInput {
 }
 
 input CreateCompanyInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Nome da Empresa"""
+  name: String!
 }
 
 input UpdateCompanyInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """Nome da Empresa"""
+  name: String
+  id: String!
+
+  """Slug único"""
+  slug: String
+
+  """Pedido mínimo"""
+  minimumOrder: Float
+
+  """Descricao da Empresa"""
+  description: String
 }
 
 input CreateOperatingDayInput {
