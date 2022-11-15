@@ -13,13 +13,13 @@ export class CompanyResolver {
     return this.companyService.create(createCompanyInput)
   }
 
-  @Query(() => [Company], { name: 'company' })
+  @Query(() => [Company], { name: 'companies' })
   findAll() {
     return this.companyService.findAll()
   }
 
-  @Query(() => Company, { name: 'company' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => Company, { name: 'company', nullable: true })
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.companyService.findOne(id)
   }
 

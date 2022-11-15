@@ -21,11 +21,19 @@ export class CompanyService {
   }
 
   findAll() {
-    return `This action returns all company`
+    try {
+      return this.companyRepository.find()
+    } catch (error) {
+      throw new InternalServerErrorException(error)
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} company`
+  findOne(id: string) {
+    try {
+      return this.companyRepository.findOneBy({ id })
+    } catch (error) {
+      throw new InternalServerErrorException(error)
+    }
   }
 
   async update(id: string, updateCompanyInput: UpdateCompanyInput) {

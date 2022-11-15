@@ -1,4 +1,4 @@
-import { postgresConfig as databaseConfigRegister } from '@app/common/configs'
+import { mongoConfig as databaseConfigRegister } from '@app/common/configs'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { Test } from '@nestjs/testing'
 describe('DatabaseConfig', () => {
@@ -20,14 +20,13 @@ describe('DatabaseConfig', () => {
         providers: []
       }).compile()
       configService = moduleRef.get<ConfigService>(ConfigService)
-      const databaseConfig = configService.get('database')
-      expect(databaseConfig).toHaveProperty('type')
+      const databaseConfig = configService.get('mongo')
+      expect(databaseConfig).toHaveProperty('url')
       expect(databaseConfig).toHaveProperty('host')
+      expect(databaseConfig).toHaveProperty('name')
       expect(databaseConfig).toHaveProperty('port')
       expect(databaseConfig).toHaveProperty('username')
       expect(databaseConfig).toHaveProperty('password')
-      expect(databaseConfig).toHaveProperty('name')
-      expect(databaseConfig).toHaveProperty('synchronize')
     })
 
     it('should throw a error if appropriate app configs is not present', async () => {

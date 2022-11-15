@@ -7,7 +7,13 @@ type User {
   id: String!
 
   """username"""
-  username: String!
+  username: String
+
+  """name"""
+  name: String
+
+  """cpf"""
+  cpf: String
 }
 
 type Category {
@@ -148,8 +154,9 @@ type Address {
 }
 
 type Query {
-  user(id: Int!): User!
-  company(id: Int!): Company!
+  user(id: String!): User!
+  companies: [Company!]!
+  company(id: String!): Company
   operatingDay(id: Int!): OperatingDay!
   openTime(id: Int!): OpenTime!
   contact(id: Int!): Contact!
@@ -194,14 +201,32 @@ type Mutation {
 }
 
 input CreateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """username"""
+  username: String
+
+  """password"""
+  password: String
+
+  """name"""
+  name: String
+
+  """cpf"""
+  cpf: String
 }
 
 input UpdateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """username"""
+  username: String
+
+  """password"""
+  password: String
+
+  """name"""
+  name: String
+
+  """cpf"""
+  cpf: String
+  id: String!
 }
 
 input CreateCompanyInput {

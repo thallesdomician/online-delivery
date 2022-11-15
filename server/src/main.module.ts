@@ -1,6 +1,5 @@
 import { CommonModule } from '@app/common/common.module'
 import { Module } from '@nestjs/common'
-import { AuthModule } from './auth/auth.module'
 import { UserModule } from './user/user.module'
 import { CompanyModule } from './company/company.module'
 import { OperatingDayModule } from './operating-day/operating-day.module'
@@ -23,7 +22,6 @@ import { AdditionalItemModule } from './additional-item/additional-item.module'
         isGlobal: true
       }
     }),
-    AuthModule,
     UserModule,
     CompanyModule,
     OperatingDayModule,

@@ -10,7 +10,8 @@ import { ThrottlerModule, ThrottlerModuleOptions } from '@nestjs/throttler'
 import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import path from 'path'
-import { databaseConfig } from '@app/common/configs'
+import { postgresConfig } from '@app/common/configs'
+import { mongoConfig } from '@app/common/configs'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { User } from '@app/user/entities/user.entity'
 import { Company } from '@app/company/entities/company.entity'
@@ -22,6 +23,7 @@ import { Category } from '@app/category/entities/category.entity'
 import { Contact } from '@app/contact/entities/contact.entity'
 import { Product } from '@app/product/entities/product.entity'
 import { AdditionalItem } from '@app/additional-item/entities/additional-item.entity'
+import { MongooseModule, MongooseModuleFactoryOptions } from '@nestjs/mongoose'
 
 @Global()
 @Module({})
@@ -42,7 +44,8 @@ export class CommonModule {
         ConfigModule.forRoot({ ...options.configModule }),
         ConfigModule.forFeature(appConfig()),
         ConfigModule.forFeature(throttleConfig()),
-        ConfigModule.forFeature(databaseConfig()),
+        ConfigModule.forFeature(postgresConfig()),
+        ConfigModule.forFeature(mongoConfig()),
         HttpModule,
         TerminusModule,
         ThrottlerModule.forRootAsync({
@@ -58,14 +61,13 @@ export class CommonModule {
           inject: [ConfigService],
           useFactory: async (configService: ConfigService): Promise<TypeOrmModuleOptions> => {
             return {
-              type: configService.get<'postgres'>('database.type'),
-              host: configService.get<string>('database.host'),
-              port: configService.get<number>('database.port'),
-              username: configService.get<string>('database.username'),
-              password: configService.get<string>('database.password'),
-              database: configService.get<string>('database.name'),
-              synchronize: configService.get<boolean>('database.synchronize'),
-              dropSchema: configService.get<boolean>('database.dropSchema'),
+              type: configService.get<'postgres'>('postgres.type'),
+              host: configService.get<string>('postgres.host'),
+              port: configService.get<number>('postgres.port'),
+              username: configService.get<string>('postgres.username'),
+              password: configService.get<string>('postgres.password'),
+              database: configService.get<string>('postgres.name'),
+              synchronize: configService.get<boolean>('postgres.synchronize'),
               entities: [
                 User,
                 Company,
@@ -78,7 +80,19 @@ export class CommonModule {
                 Product,
                 AdditionalItem
               ],
-              autoLoadEntities: true
+              autoLoadEntities: false
+            }
+          }
+        }),
+        MongooseModule.forRootAsync({
+          inject: [ConfigService],
+          useFactory: async (configService: ConfigService): Promise<MongooseModuleFactoryOptions> => {
+            return {
+              dbName: configService.get<string>('mongo.name'),
+              user: configService.get<string>('mongo.username'),
+              pass: configService.get<string>('mongo.password'),
+              uri: configService.get<string>('mongo.url'),
+              autoCreate: true
             }
           }
         })
