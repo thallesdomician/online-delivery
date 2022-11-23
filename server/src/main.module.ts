@@ -10,6 +10,9 @@ import { PaymentModule } from './payment/payment.module'
 import { AddressModule } from './address/address.module'
 import { ProductModule } from './product/product.module'
 import { AdditionalItemModule } from './additional-item/additional-item.module'
+import { AuthModule } from './auth/auth.module'
+import { AuthorizationModule } from './authorization/authorization.module'
+import { UserRoleModule } from './user-role/user-role.module'
 
 @Module({
   imports: [
@@ -31,7 +34,10 @@ import { AdditionalItemModule } from './additional-item/additional-item.module'
     PaymentModule,
     AddressModule,
     ProductModule,
-    AdditionalItemModule
+    AdditionalItemModule,
+    AuthModule,
+    AuthorizationModule,
+    UserRoleModule
   ],
   providers: []
 })

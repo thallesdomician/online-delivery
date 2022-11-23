@@ -2,20 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
-  """UUID"""
-  id: String!
-
-  """username"""
-  username: String
-
-  """name"""
-  name: String
-
-  """cpf"""
-  cpf: String
-}
-
 type Category {
   """UUID"""
   id: String!
@@ -130,6 +116,42 @@ type Company {
   minimumOrder: Float
 }
 
+type UserRole {
+  """UUID"""
+  id: String!
+
+  """dados do User"""
+  user: User!
+
+  """Dados da Empresa"""
+  company: Company
+
+  """Tipo de Contato"""
+  type: Role!
+}
+
+enum Role {
+  User
+  Admin
+}
+
+type User {
+  """UUID"""
+  id: String!
+
+  """username"""
+  username: String
+
+  """name"""
+  name: String
+
+  """cpf"""
+  cpf: String
+
+  """Dados da Empresa"""
+  roles: UserRole!
+}
+
 type Address {
   """UUID"""
   id: String!
@@ -153,8 +175,15 @@ type Address {
   zipcode: String!
 }
 
+type AuthType {
+  user: User!
+  token: String!
+}
+
 type Query {
+  users: [User!]!
   user(id: String!): User!
+  whoAmI: User!
   companies: [Company!]!
   company(id: String!): Company
   operatingDay(id: Int!): OperatingDay!
@@ -165,11 +194,13 @@ type Query {
   address(id: Int!): Address!
   product(id: Int!): Product!
   additionalItem(id: Int!): AdditionalItem!
+  userRole(id: Int!): UserRole!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
+  updateI(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
   createCompany(createCompanyInput: CreateCompanyInput!): Company!
   updateCompany(updateCompanyInput: UpdateCompanyInput!): Company!
@@ -198,6 +229,10 @@ type Mutation {
   createAdditionalItem(createAdditionalItemInput: CreateAdditionalItemInput!): AdditionalItem!
   updateAdditionalItem(updateAdditionalItemInput: UpdateAdditionalItemInput!): AdditionalItem!
   removeAdditionalItem(id: Int!): AdditionalItem!
+  login(data: AuthInput!): AuthType!
+  createUserRole(createUserRoleInput: CreateUserRoleInput!): UserRole!
+  updateUserRole(updateUserRoleInput: UpdateUserRoleInput!): UserRole!
+  removeUserRole(id: Int!): UserRole!
 }
 
 input CreateUserInput {
@@ -332,6 +367,22 @@ input CreateAdditionalItemInput {
 }
 
 input UpdateAdditionalItemInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input AuthInput {
+  username: String!
+  password: String!
+}
+
+input CreateUserRoleInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateUserRoleInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!

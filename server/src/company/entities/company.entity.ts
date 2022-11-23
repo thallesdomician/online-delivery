@@ -6,6 +6,7 @@ import { OpenTime } from '@app/open-time/entities/open-time.entity'
 import { OperatingDay } from '@app/operating-day/entities/operating-day.entity'
 import { Payment } from '@app/payment/entities/payment.entity'
 import { Product } from '@app/product/entities/product.entity'
+import { UserRole } from '@app/user-role/entities/user-role.entity'
 import { ObjectType, Field, Float } from '@nestjs/graphql'
 import { Column, Entity, Index, OneToMany } from 'typeorm'
 
@@ -49,4 +50,7 @@ export class Company extends EntityDefault {
 
   @OneToMany(() => AdditionalItem, (additionalItem) => additionalItem.company)
   additionalItems: AdditionalItem[]
+
+  @OneToMany(() => UserRole, (role) => role.company, { nullable: true })
+  roles?: UserRole[]
 }

@@ -4,26 +4,16 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { FindOptionsWhere, Repository } from 'typeorm'
 import { CreateUserInput } from './dto/create-user.input'
 import { UpdateUserInput } from './dto/update-user.input'
-import bcrypt from 'bcrypt'
-import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class UserService {
   secret: string
   constructor(
     @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
-    private readonly configService: ConfigService
-  ) {
-    this.secret = this.configService.get<string>('authentication.secret.rounds')
-  }
+    private readonly userRepository: Repository<User>
+  ) {}
   async create(createUserInput: CreateUserInput) {
     try {
-      const { secret } = this
-      console.log(secret)
-
-      createUserInput.password = await bcrypt.hash(createUserInput.password, secret)
-
       const user = this.userRepository.create(createUserInput)
       return this.userRepository.save(user)
     } catch (error) {
@@ -32,7 +22,11 @@ export class UserService {
   }
 
   findAll() {
-    return `This action returns all user`
+    try {
+      return this.userRepository.find()
+    } catch (error) {
+      throw new InternalServerErrorException(error)
+    }
   }
 
   findOne(id: string) {

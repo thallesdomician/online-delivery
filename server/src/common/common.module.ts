@@ -24,6 +24,10 @@ import { Contact } from '@app/contact/entities/contact.entity'
 import { Product } from '@app/product/entities/product.entity'
 import { AdditionalItem } from '@app/additional-item/entities/additional-item.entity'
 import { MongooseModule, MongooseModuleFactoryOptions } from '@nestjs/mongoose'
+import { UserRole } from '@app/user-role/entities/user-role.entity'
+import { RolesGuard } from '@app/authorization/guards/roles.guard'
+import { APP_GUARD } from '@nestjs/core'
+import { GqlAuthGuard } from '@app/auth/guard/jwt-auth.guard'
 
 @Global()
 @Module({})
@@ -71,6 +75,7 @@ export class CommonModule {
               entities: [
                 User,
                 Company,
+                UserRole,
                 Contact,
                 Address,
                 Payment,
@@ -97,7 +102,20 @@ export class CommonModule {
           }
         })
       ],
-      providers: [StrategyExplorerService, CorrelationIdMiddleware, HealthService, AppConfigService],
+      providers: [
+        StrategyExplorerService,
+        CorrelationIdMiddleware,
+        HealthService,
+        AppConfigService
+        // {
+        //   provide: APP_GUARD,
+        //   useClass: GqlAuthGuard
+        // },
+        // {
+        //   provide: APP_GUARD,
+        //   useClass: RolesGuard
+        // }
+      ],
 
       exports: [StrategyExplorerService, AppConfigService]
     }
